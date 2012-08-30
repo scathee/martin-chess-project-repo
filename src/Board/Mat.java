@@ -4,14 +4,32 @@
  */
 package Board;
 import Pieces.Piece;
+
+import java.util.ArrayList;
 /**
  * 
  * @author hzwerlla14
  * this class just holds the board which is a simple 2d array
  */
 public class Mat {
-    int[][]board;
+    Piece board[][];
     public Mat(){
-        board=new int[8][8];
+        board=new Piece[8][8];
+    }
+    /*
+     * prints
+     */
+    public void printOutBoard(){
+        for(int i=0;i<8;i++){
+            for(int y=0;y<6;y++){
+                
+            }
+        }
+    }
+    
+    public ArrayList<Location> getValidMoves(Piece a){
+        ArrayList<Location> list=new ArrayList<Location>();
+        
+        return list;
     }
 }
