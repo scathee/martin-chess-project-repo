@@ -12,26 +12,28 @@ import Board.Location;
  */
 public class Bishop implements Piece{
     boolean black;
-    public Bishop(){
+    Location l;
+    int v;
     
+    public Bishop(boolean gangnam, Location style, int oppa){
+        black=gangnam;
+        l=style;
+        v=oppa;
     }
     public boolean isBlack() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return black;
     }
 
-    @Override
     public Location getLocation() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return l;
     }
 
-    @Override
-    public void setLocation() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setLocation(Location style) {
+        l=style;
     }
 
-    @Override
     public int getValue() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return v;
     }
     
 }

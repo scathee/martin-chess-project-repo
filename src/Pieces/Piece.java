@@ -12,6 +12,6 @@ import Board.Location;
 public interface Piece {
     public boolean isBlack();
     public Location getLocation();
-    public void setLocation();
+    public void setLocation(int x, int y);
     public int getValue();
 }
