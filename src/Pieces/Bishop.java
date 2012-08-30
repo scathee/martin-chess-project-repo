@@ -7,7 +7,7 @@ package Pieces;
 import Board.Location;
 
 /**
- * marucci suckxassasasasa
+ * @author ajmarucci14
  * @author hzwerlla14
  */
 public class Bishop implements Piece{
