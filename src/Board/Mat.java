@@ -3,8 +3,7 @@
  * and open the template in the editor.
  */
 package Board;
-import Pieces.Pawn;
-import Pieces.Piece;
+import Pieces.*;//need to use all of them
 
 import java.util.ArrayList;
 /**
@@ -25,19 +24,38 @@ public class Mat {
         for(int i=0;i<8;i++){
             System.out.print((i+1)+"  ");
             for(int y=0;y<8;y++){
-                if(board[i][y]!=null)
-                    System.out.print(board[i][y]+" ");
+                if(board[i][y]!=null){
+                    String b=(board[i][y].isBlack()) ? "B":"W";//tetrinary operator if you don't recognize it
+                    System.out.print(b+board[i][y]+" ");
+                }
                 else
-                    System.out.print(" ");
+                    System.out.print("   ");
             }
             System.out.print("\n");
         }
-        System.out.println("   A B C D E F G H");
+        System.out.println("   A  B  C  D  E  F  G  H");
     }
     
     public ArrayList<Location> getValidMoves(Piece a){
         ArrayList<Location> list=new ArrayList<Location>();
-        
+        if(a instanceof Bishop){
+            
+        }
+        if(a instanceof Pawn){
+            
+        }
+        if(a instanceof Knight){
+            
+        }
+        if(a instanceof Rook){
+            
+        }
+        if(a instanceof Queen){
+            
+        }
+        if(a instanceof King){
+            
+        }
         return list;
     }
     /*
@@ -46,19 +64,40 @@ public class Mat {
     * !adds all 32 pieces
     */
     public void addPieces(){
-        //can add pawns with loops
-        //black pawns
-        for(int i=0;i<8;i++){
-            board[6][i]=new Pawn(true, 7, i);
-        }
-        //white pawns
+        //white pieces
         for(int i=0;i<8;i++){
             board[1][i]=new Pawn(false, 2, i);
         }
+        board[0][0]=new Rook(false,1,1);
+        board[0][7]=new Rook(false,1,8);
+        board[0][6]=new Knight(false,1,7);
+        board[0][1]=new Knight(false,1,2);
+        board[0][5]=new Bishop(false,1,6);
+        board[0][2]=new Bishop(false,1,3);
+        board[0][4]=new King(false,1,5);
+        board[0][3]=new Queen(false,1,4);
+        //black pieces
+        for(int i=0;i<8;i++){
+            board[6][i]=new Pawn(true, 7, i);
+        }
+        board[7][0]=new Rook(false,8,1);
+        board[7][7]=new Rook(false,8,8);
+        board[7][6]=new Knight(false,8,7);
+        board[7][1]=new Knight(false,8,2);
+        board[7][5]=new Bishop(false,8,6);
+        board[7][2]=new Bishop(false,8,3);
+        board[7][4]=new King(false,8,5);
+        board[7][3]=new Queen(false,8,4);
     }
     /*
      * for output
      */
+    public int convertRowToArrayRow(int i){
+        return --i;
+    }
+    public int convertArrayRowToRow(int i){
+        return ++i;
+    }
     public char rowNumberToChar(int i){
         char c;
         switch(i){
