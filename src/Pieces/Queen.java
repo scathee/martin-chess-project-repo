@@ -22,5 +22,8 @@ public class Queen extends Piece{
     public int getValue() {
         return (Maths.QueenValue);
     }
-    
+    @Override
+    public String toString(){
+        return("Q");
+    }
 }

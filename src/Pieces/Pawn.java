@@ -36,4 +36,8 @@ public class Pawn extends Piece{
     public void setFirstMoveDouble(boolean b){
         firstMoveDouble=b;
     }
+    @Override
+    public String toString(){
+        return("P");
+    }
 }

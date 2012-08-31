@@ -22,5 +22,8 @@ public class Knight extends Piece{
     public int getValue() {
         return (Maths.KnightValue);
     }
-    
+    @Override
+    public String toString(){
+        return("N");
+    }
 }

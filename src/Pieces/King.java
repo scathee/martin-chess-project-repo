@@ -28,4 +28,8 @@ public class King extends Piece{
     public void setHasMoved(boolean m){
         hasMoved=m;
     }
+    @Override
+    public String toString(){
+        return("K");
+    }
 }

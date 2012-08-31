@@ -22,5 +22,8 @@ public class Bishop extends Piece{
     public int getValue() {
         return (Maths.BishopValue);
     }
-    
+    @Override
+    public String toString(){
+        return("B");
+    }
 }

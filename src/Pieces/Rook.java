@@ -23,5 +23,8 @@ public class Rook extends Piece{
     public int getValue() {
         return (Maths.RookValue);
     }
-    
+    @Override
+    public String toString(){
+        return("R");
+    }
 }
