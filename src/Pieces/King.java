@@ -5,31 +5,27 @@
 package Pieces;
 
 import Board.Location;
-
+import ChessGame.Maths;
 /**
  *
  * @author hzwerlla14
  */
-public class King implements Piece{
-    boolean black;
-    @Override
-    public boolean isBlack() {
-        throw new UnsupportedOperationException("Not supported yet.");
+public class King extends Piece{
+    boolean hasMoved;//for castling
+    public King(boolean black, int x, int y){
+        super(black, x, y);
+        hasMoved=false;
     }
-
-    @Override
-    public Location getLocation() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public King(boolean black, Location l){
+        super(black, l);
     }
-
-    @Override
-    public void setLocation() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public int getValue() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return Maths.KingValue;
     }
-    
+    public boolean getHasMoved(){
+        return hasMoved;
+    }
+    public void setHasMoved(boolean m){
+        hasMoved=m;
+    }
 }
