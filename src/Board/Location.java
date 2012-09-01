@@ -1,20 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Board;
 
 import Errors.StupidCantPlayThereError;
 /**
  * stuff held in here is not in array form(ex first one is 0)
  * all that takes place in methods
+ * anyway basic location class
  * @author hzwerlla14
  */
 public class Location {
     int x;
     int y;
     public Location(int x, int y){
-        if(!(x>7||y>7)){
+        if(!(x>8||y>1)){
             this.x=x;
             this.y=y;
             //todo throw error

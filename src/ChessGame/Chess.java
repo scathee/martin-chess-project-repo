@@ -42,17 +42,17 @@ public class Chess {
                 theBoard.printOutBoard();
             }
             else{
-                System.out.println("thatmove goes off the board!");
+                System.out.println("that move goes off the board!");
             }
         }
         //System.out.println("thanks for playing");
     }
     public static Move parseInput(String s, Mat b){
         //checks if number is too big, too small, or if theres nothing there
-        Location oldLoc=new Location(s.charAt(2)-1,s.charAt(3));
-        Location newLoc=new Location(s.charAt(5)-1,s.charAt(6));
+        Location oldLoc=new Location(s.charAt(2),s.charAt(3));
+        Location newLoc=new Location(s.charAt(5),s.charAt(6));
         Move guy=new Move('W',s.charAt(0),oldLoc,newLoc);
-        System.out.println(guy);
+        System.out.println(guy.getOldX());
         if(guy.getOldX()>8||guy.getOldX()<1||guy.getOldY()<1||guy.getOldY()>8||!b.isOccupied(guy.getOldLoc())){
             return null;
         }

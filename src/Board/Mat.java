@@ -44,7 +44,7 @@ public class Mat {
         return true;
     }
     public boolean isOccupied(Location l){
-        if(board[l.getX()][l.getY()]!=null){
+        if(board[l.getX()-1][l.getY()-1]!=null){
             return true;
         }
         return false;
@@ -72,9 +72,7 @@ public class Mat {
         return list;
     }
     /*
-    * this method is redicuously huge becasue can't find a better way to do it
-    * a file would be stupid and prettymuch thats all the other option
-    * !adds all 32 pieces
+    * sadly this is the best way to do it
     */
     public void addPieces(){
         //white pieces
@@ -114,28 +112,28 @@ public class Mat {
     public static char rowNumberToChar(int i){
         char c=0;
         switch(i){
-            case 0:
+            case 1:
                 c='A';
                 break;
-            case 1:
+            case 2:
                 c='B';
                 break;
-            case 2:
+            case 3:
                 c='C';
                 break;
-            case 3:
+            case 4:
                 c='D';
                 break;
-            case 4:
+            case 5:
                 c='E';
                 break;
-            case 5:
+            case 6:
                 c='F';
                 break;
-            case 6:
+            case 7:
                 c='G';
                 break;
-            case 7:
+            case 8:
                 c='H';
                 break;
             default:
