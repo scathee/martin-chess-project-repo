@@ -22,12 +22,17 @@ public abstract class Piece {
     }
     public boolean isBlack(){
         return black;
-    };
+    }
     public Location getLocation(){
         return l;
-    };
+    }
     public final void setLocation(int x, int y){
         l=new Location(x,y);
-    };
+    }
+    public final boolean isSameColor(Piece a){
+        if(this.isBlack()==a.isBlack())
+            return true;
+        return false;
+    }
     public abstract int getValue();
 }

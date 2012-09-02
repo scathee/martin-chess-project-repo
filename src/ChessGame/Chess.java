@@ -44,6 +44,7 @@ public class Chess {
             else{
                 System.out.println("that move goes off the board!");
             }
+            System.out.println(theBoard.getValidMoves(theBoard.getPiece(new Location(1,8))));
         }
         //System.out.println("thanks for playing");
     }

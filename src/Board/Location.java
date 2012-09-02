@@ -33,6 +33,7 @@ public class Location {
     public void setX(int x){
         this.x=x;
     }
+    @Override
     public String toString(){
         return Mat.rowNumberToChar(x)+""+y;
     }

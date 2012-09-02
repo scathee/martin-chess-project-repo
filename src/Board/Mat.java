@@ -52,28 +52,31 @@ public class Mat {
     public ArrayList<Location> getValidMoves(Piece a){
         ArrayList<Location> list=new ArrayList<Location>();
         if(a instanceof Bishop){
-            
+            list=ValidMoves.ForBishop(a,this);
         }
         if(a instanceof Pawn){
-            
+            list=ValidMoves.ForPawn(a,this);
         }
         if(a instanceof Knight){
-            
+            list=ValidMoves.ForKnight(a,this);
         }
         if(a instanceof Rook){
-            
+            list=ValidMoves.ForRook(a,this);
         }
         if(a instanceof Queen){
-            
+            list=ValidMoves.ForQueen(a,this);
         }
         if(a instanceof King){
-            
+            list=ValidMoves.ForKing(a,this);
         }
         return list;
     }
     /*
     * sadly this is the best way to do it
     */
+    public Piece getPiece(Location l){
+        return board[l.getX()][l.getY()];
+    }
     public void addPieces(){
         //white pieces
         for(int i=0;i<8;i++){
@@ -231,5 +234,7 @@ public class Mat {
         }
         return null;///this makes netbeans happy because it wouldent accept my default case
     }
-
+    public Piece[][] getBoard(){
+        return board;
+    }
 }
