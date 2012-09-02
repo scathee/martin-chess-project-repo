@@ -34,5 +34,8 @@ public abstract class Piece {
             return true;
         return false;
     }
+    public String toString(){
+        return l.toString();
+    }
     public abstract int getValue();
 }

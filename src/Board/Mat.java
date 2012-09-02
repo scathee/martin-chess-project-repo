@@ -28,7 +28,7 @@ public class Mat {
             for(int x=0;x<8;x++){
                 if(board[x][y]!=null){
                     String b=(board[x][y].isBlack()) ? "B":"W";//tetrinary operator if you don't recognize it
-                    System.out.print(b+board[x][y]+" ");
+                    System.out.print(b+Mat.getPieceLetter(board[x][y])+" ");
                 }
                 else
                     System.out.print("   ");
@@ -103,14 +103,8 @@ public class Mat {
         board[4][7]=new King(true,8,5);
         board[3][7]=new Queen(true,8,4);
     }
-    /*
-     * for output
-     */
-    public int convertRowToArrayRow(int i){
-        return --i;
-    }
-    public int convertArrayRowToRow(int i){
-        return ++i;
+    public Piece[][] getBoard(){
+        return board;
     }
     public static char rowNumberToChar(int i){
         char c=0;
@@ -234,7 +228,19 @@ public class Mat {
         }
         return null;///this makes netbeans happy because it wouldent accept my default case
     }
-    public Piece[][] getBoard(){
-        return board;
+    public static char getPieceLetter(Piece p){
+        if(p instanceof Pawn)
+            return 'P';
+        if(p instanceof Bishop)
+            return 'B';
+        if(p instanceof Rook)
+            return 'R';
+        if(p instanceof Knight)
+            return 'N';  
+        if(p instanceof King)
+            return 'K';
+        if(p instanceof Queen)
+            return 'Q';
+        return 'z';
     }
 }
