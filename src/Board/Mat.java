@@ -243,4 +243,44 @@ public class Mat {
             return 'Q';
         return 'z';
     }
+    public static ArrayList<Piece> getAllPieces(Piece [][] a){
+        ArrayList<Piece> list=new ArrayList<Piece>();
+        for(int i=0;i<8;i++)
+            for(int x=0;x<8;x++)
+                if(!(a[i][x]==null))
+                    list.add(a[x][i]);
+        return list;
+    }
+    public static boolean isThereKing(Piece [][] a){
+        int z=0;
+        for(int x=0;x<8;x++)
+             for(int i=0;i<8;i++)
+                 if(a[x][i] instanceof King)
+                     z++;
+        if(z>1){
+            return true;
+        }
+        return false;
+    }
+    /*
+     called if there is not two kings to determine iwnner
+     */
+    public static boolean isThereBlackKing(Piece [][] a){
+        boolean isWhiteKing=false;
+        boolean isBlackKing=false;
+        for(int x=0;x<8;x++){
+             for(int i=0;i<8;i++)
+                 if(a[x][i] instanceof King){
+                     if(a[x][i].isBlack()==true){
+                         isBlackKing=true;
+                     }
+                     else{
+                         isWhiteKing=false;
+                     }
+                 }
+        }
+        if(isWhiteKing==false)             
+            return true;
+        return true;
+    }
 }
