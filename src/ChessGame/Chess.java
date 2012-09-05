@@ -17,7 +17,7 @@ public class Chess {
         Mat theBoard=new Mat();
         Scanner omnomnom=new Scanner(System.in);
         Move parsedData=null;
-        ArrayList<Move>Log=new ArrayList<Move>();
+        ArrayList<Move>log=new ArrayList<Move>();
         theBoard.printOutBoard();
         //main loop of execution
         //checks if its checkmate or only 2 kings left
@@ -28,7 +28,7 @@ public class Chess {
         for(;;){
             String input=omnomnom.nextLine();
             if(input.equals("log")){
-                for(Move m:Log)
+                for(Move m:log)
                     System.out.println(m);
                 continue;//jump back to top of loop
             }
@@ -49,9 +49,8 @@ public class Chess {
                     }
                 }
                 if(canMoveThere==true){
-                    Log.add(parsedData);
+                    log.add(parsedData);
                     theBoard.movePiece(parsedData.getOldLoc(),parsedData.getNewLoc());
-                    theBoard.printOutBoard();
                     //debug
                     for(Location l:ValidMoves.ForRook(theBoard.getPiece(1, 1), theBoard)){
                         System.out.println(l);
@@ -59,12 +58,39 @@ public class Chess {
                 }
                 else{
                     System.out.println("illegal move\n\n");
-                    theBoard.printOutBoard();
                 }
             }
             else{
                 System.out.println("that move goes off the board!");
             }
+            //now begins computer prtion
+            ArrayList<Piece> allBlackPieces=Mat.getAllBlackPieces(theBoard.getBoard());
+            int counter=0;
+            Piece randomPiece=null;
+            boolean emergencyexit=false;
+            ArrayList<Location>randomPieceMoves=null;
+            while(counter<5000){
+                randomPiece=allBlackPieces.get((int)(Math.random()*allBlackPieces.size()));
+                randomPieceMoves=theBoard.getValidMoves(randomPiece);
+                if(randomPieceMoves.size()!=0){
+                    counter=5001;
+                    continue;
+                }
+                counter++;
+                if(counter>5000){
+                    System.out.println("stale mate proibbally");
+                    emergencyexit=true;
+                    break;
+                }
+            }
+            if(emergencyexit=true)
+                break;//out of main loop of execution
+            //this thing is horribally done but done in a rush to work will be refined later
+            Location randomSpot=randomPieceMoves.get((int)(Math.random()*randomPieceMoves.size()));
+            Move m=new Move('B',randomPiece.toString().charAt(1),randomPiece.getLocation(),randomSpot);//has to getcharAt 1 because syntax of the tostring is " P" with P being piece letter
+            theBoard.movePiece(m);
+            log.add(m);
+            //checks if game is over
             if(Mat.isThereKing(theBoard.getBoard())==false){
                 if(Mat.isThereBlackKing(theBoard.getBoard())){
                     System.out.println("Black Wins");
@@ -73,6 +99,7 @@ public class Chess {
                 System.out.println("White Wins");
                 break;
             }
+            theBoard.printOutBoard();
         }
         //System.out.println("thanks for playing");
     }

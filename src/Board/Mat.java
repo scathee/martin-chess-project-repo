@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package Board;
+import ChessGame.Move;
 import Pieces.*;//need to use all of them
 
 import java.util.ArrayList;
@@ -38,10 +39,13 @@ public class Mat {
         System.out.println("   A  B  C  D  E  F  G  H");
     }
     //moves pieces returns false if you can't do that
-    public boolean movePiece(Location oldLoc, Location newLoc){
+    public void movePiece(Location oldLoc, Location newLoc){
         board[newLoc.getX()-1][newLoc.getY()-1]=board[oldLoc.getX()-1][oldLoc.getY()-1];
         board[oldLoc.getX()-1][oldLoc.getY()-1]=null;
-        return true;
+    }
+    public void movePiece(Move m){
+        board[m.getNewX()-1][m.getNewY()-1]=board[m.getOldX()-1][m.getOldY()-1];
+        board[m.getOldX()-1][m.getOldY()-1]=null;
     }
     public boolean isOccupied(Location l){
         if(board[l.getX()-1][l.getY()-1]!=null){
@@ -252,6 +256,24 @@ public class Mat {
             for(int x=0;x<8;x++)
                 if(!(a[i][x]==null))
                     list.add(a[x][i]);
+        return list;
+    }
+    public static ArrayList<Piece> getAllBlackPieces(Piece [][] a){
+        ArrayList<Piece> list=new ArrayList<Piece>();
+        for(int i=0;i<8;i++)
+            for(int x=0;x<8;x++)
+                if(!(a[i][x]==null))
+                    if(a[i][x].isBlack()==true)
+                        list.add(a[x][i]);
+        return list;
+    }
+    public static ArrayList<Piece> getAllWhitePieces(Piece [][] a){
+        ArrayList<Piece> list=new ArrayList<Piece>();
+        for(int i=0;i<8;i++)
+            for(int x=0;x<8;x++)
+                if(!(a[i][x]==null))
+                    if(a[i][x].isBlack()==false)
+                        list.add(a[x][i]);
         return list;
     }
     public static boolean isThereKing(Piece [][] a){
