@@ -42,4 +42,9 @@ public class Location {
             return true;
         return false;
     }
+    public static boolean isValid(Location z){
+        if(z.getX()<1||z.getX()>8||z.getY()>8||z.getY()<1)
+            return false;
+        return true;
+    }
 }

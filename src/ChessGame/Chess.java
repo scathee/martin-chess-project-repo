@@ -40,10 +40,12 @@ public class Chess {
             if(parsedData!=null){
                 ArrayList<Location>possibleMoves=theBoard.getValidMoves(theBoard.getPiece(parsedData.getOldLoc()));
                 boolean canMoveThere=false;
-                for(Location loc:possibleMoves){
-                    if(loc.equals(parsedData.getNewLoc())){
-                        canMoveThere=true;
-                        break;
+                if(possibleMoves!=null){
+                    for(Location loc:possibleMoves){
+                        if(loc.equals(parsedData.getNewLoc())){
+                            canMoveThere=true;
+                            break;
+                        }
                     }
                 }
                 if(canMoveThere==true){

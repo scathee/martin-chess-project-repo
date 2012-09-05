@@ -22,10 +22,12 @@ public class ValidMoves {
      * @return
      */
     public static ArrayList<Location> ForRook(Piece piece, Mat mat){
+        
         ArrayList<Location> moves=new ArrayList<Location>();
         int x=piece.getLocation().getX();
         int y=piece.getLocation().getY();
         Piece[][]board=mat.getBoard();
+        /*
         //need four of them, check to left then right and glad i put this in its own class becasue so long
         //check to the right
         //makes sure not on rightmost so it won't throw an indexoutofbounds
@@ -86,13 +88,29 @@ public class ValidMoves {
                     break;
                 }
             }
-        }
+        }*/
         return moves;
     }
+    //acctually easiest but still broke
     public static ArrayList<Location> ForKnight(Piece p,Mat mat){
         ArrayList<Location> moves=new ArrayList<Location>();
         int x=p.getLocation().getX();
         int y=p.getLocation().getY();
+        //basically hard add them then remove the ones that don't work
+        moves.add(new Location(x+1,y+2));
+        moves.add(new Location(x+1,y-2));
+        moves.add(new Location(x-1,y+2));
+        moves.add(new Location(x-1,y-2));
+        moves.add(new Location(x+2,y+1));
+        moves.add(new Location(x+2,y-1));
+        moves.add(new Location(x-2,y+1));
+        moves.add(new Location(x-2,y-1));
+        for(int i=0;i<moves.size();i++){
+            if(Location.isValid(moves.get(i))==false){
+                moves.remove(i);
+                i--;
+            }        
+        }
         return moves;
     }
     public static ArrayList<Location> ForBishop(Piece p,Mat mat){

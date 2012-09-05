@@ -75,7 +75,7 @@ public class Mat {
     * sadly this is the best way to do it
     */
     public Piece getPiece(Location l){
-        return board[l.getX()][l.getY()];
+        return board[l.getX()-1][l.getY()-1];
     }
     public void addPieces(){
         //white pieces
