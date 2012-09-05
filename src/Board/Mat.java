@@ -106,6 +106,9 @@ public class Mat {
     public Piece[][] getBoard(){
         return board;
     }
+    public Piece getPiece(int x,int y){
+        return board[x-1][y-1];
+    }
     public static char rowNumberToChar(int i){
         char c=0;
         switch(i){

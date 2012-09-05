@@ -5,6 +5,7 @@
 package ChessGame;
 
 import Board.*;
+import Pieces.Piece;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -37,15 +38,38 @@ public class Chess {
             }
             parsedData=parseInput(input,theBoard);
             if(parsedData!=null){
-                Log.add(parsedData);
-                theBoard.movePiece(parsedData.getOldLoc(),parsedData.getNewLoc());
-                theBoard.printOutBoard();
+                ArrayList<Location>possibleMoves=theBoard.getValidMoves(theBoard.getPiece(parsedData.getOldLoc()));
+                boolean canMoveThere=false;
+                for(Location loc:possibleMoves){
+                    if(loc.equals(parsedData.getNewLoc())){
+                        canMoveThere=true;
+                        break;
+                    }
+                }
+                if(canMoveThere==true){
+                    Log.add(parsedData);
+                    theBoard.movePiece(parsedData.getOldLoc(),parsedData.getNewLoc());
+                    theBoard.printOutBoard();
+                    //debug
+                    for(Location l:ValidMoves.ForRook(theBoard.getPiece(1, 1), theBoard)){
+                        System.out.println(l);
+                    }
+                }
+                else{
+                    System.out.println("illegal move\n\n");
+                    theBoard.printOutBoard();
+                }
             }
             else{
                 System.out.println("that move goes off the board!");
             }
             if(Mat.isThereKing(theBoard.getBoard())==false){
-                System.out.println("black wins");
+                if(Mat.isThereBlackKing(theBoard.getBoard())){
+                    System.out.println("Black Wins");
+                    break;
+                }
+                System.out.println("White Wins");
+                break;
             }
         }
         //System.out.println("thanks for playing");

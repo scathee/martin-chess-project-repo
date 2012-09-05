@@ -30,8 +30,8 @@ public class ValidMoves {
         //check to the right
         //makes sure not on rightmost so it won't throw an indexoutofbounds
         if(x!=8){
-            for(int z=x;z<9;z++){
-                if(board[z][y-1]==null)
+            for(int z=x+1;z<9;x++){
+                if(board[z-1][y-1]==null)
                     moves.add(new Location(z,y));
                 else if(!piece.isSameColor(board[z-1][y-1])){
                     moves.add(new Location(z,y));
@@ -46,8 +46,8 @@ public class ValidMoves {
         //checks if its on 1 so its doenst go out of bounds
         //and wont have to check it
         if(x!=1){
-            for(int z=x;z>0;z--){
-                if(board[z-2][y-1]==null)
+            for(int z=x-1;z>0;x--){
+                if(board[z-1][y-1]==null)
                     moves.add(new Location(z,y));
                 else if(!piece.isSameColor(board[z-1][y-1])){
                     moves.add(new Location(z,y));
@@ -61,8 +61,8 @@ public class ValidMoves {
         //now check up and down
         //up
         if(y!=1){
-            for(int z=x;z<9;z++){
-                if(board[z][y-1]==null)
+            for(int z=y-1;z>0;y--){
+                if(board[x][z-1]==null)
                     moves.add(new Location(x,z));
                 else if(!piece.isSameColor(board[x-1][z-1])){
                     moves.add(new Location(x,z));
@@ -75,8 +75,8 @@ public class ValidMoves {
         }
         //down
         if(y!=1){
-            for(int z=x;z>0;z--){
-                if(board[z-2][y-1]==null)
+            for(int z=y+1;z<9;y++){
+                if(board[x][z-1]==null)
                     moves.add(new Location(x,z));
                 else if(!piece.isSameColor(board[x-1][z-1])){
                     moves.add(new Location(x,z));

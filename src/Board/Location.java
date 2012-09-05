@@ -37,4 +37,9 @@ public class Location {
     public String toString(){
         return Mat.rowNumberToChar(x)+""+y;
     }
+    public boolean equals(Location z){
+        if(this.getX()==z.getX()&&this.getY()==z.getY())
+            return true;
+        return false;
+    }
 }
