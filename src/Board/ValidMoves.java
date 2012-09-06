@@ -90,14 +90,70 @@ public class ValidMoves {
         return moves;
         //return mat.getAllLocations();
     }
-    public static ArrayList<Location> ForBishop(Piece p,Mat mat){
+    public static ArrayList<Location> ForBishop(Piece piece,Mat mat){
         ArrayList<Location> moves=new ArrayList<Location>();
-        int x=p.getLocation().getX();
-        int y=p.getLocation().getY();/*
-        if(y!=8&&x!=8){
-            while()
-        }*/
-        return mat.getAllLocations();
+        int x=piece.getLocation().getX();
+        int y=piece.getLocation().getY();
+        while(x<9&&y<9){
+               x++;
+               y++;
+                if(mat.getPiece(x, y)==null)
+                    moves.add(new Location(x,y));
+                else if(!piece.isSameColor(mat.getPiece(x, y))){
+                    moves.add(new Location(x,y));
+                    break;
+                }
+                else{
+                    break;
+                }
+            }
+        x=piece.getLocation().getX();
+        y=piece.getLocation().getY();
+        while(x>0&&y>0){
+               x--;
+               y--;
+                if(mat.getPiece(x, y)==null)
+                    moves.add(new Location(x,y));
+                else if(!piece.isSameColor(mat.getPiece(x, y))){
+                    moves.add(new Location(x,y));
+                    break;
+                }
+                else{
+                    break;
+                }
+        }
+        x=piece.getLocation().getX();
+        y=piece.getLocation().getY();
+        while(x<9&&y<9){
+               x--;
+               y++;
+                if(mat.getPiece(x, y)==null)
+                    moves.add(new Location(x,y));
+                else if(!piece.isSameColor(mat.getPiece(x, y))){
+                    moves.add(new Location(x,y));
+                    break;
+                }
+                else{
+                    break;
+                }
+        }
+        x=piece.getLocation().getX();
+        y=piece.getLocation().getY();
+        while(x<9&&y>0){
+               x++;
+               y--;
+                if(mat.getPiece(x, y)==null)
+                    moves.add(new Location(x,y));
+                else if(!piece.isSameColor(mat.getPiece(x, y))){
+                    moves.add(new Location(x,y));
+                    break;
+                }
+                else{
+                    break;
+                }
+        }
+        //return mat.getAllLocations();
+        return moves;
     }
     public static ArrayList<Location> ForQueen(Piece piece,Mat mat){
         //just rook
@@ -164,6 +220,64 @@ public class ValidMoves {
                     break;
                 }
             }
+        }
+        while(x<9&&y<9){
+               x++;
+               y++;
+                if(mat.getPiece(x, y)==null)
+                    moves.add(new Location(x,y));
+                else if(!piece.isSameColor(mat.getPiece(x, y))){
+                    moves.add(new Location(x,y));
+                    break;
+                }
+                else{
+                    break;
+                }
+            }
+        x=piece.getLocation().getX();
+        y=piece.getLocation().getY();
+        while(x>0&&y>0){
+               x--;
+               y--;
+                if(mat.getPiece(x, y)==null)
+                    moves.add(new Location(x,y));
+                else if(!piece.isSameColor(mat.getPiece(x, y))){
+                    moves.add(new Location(x,y));
+                    break;
+                }
+                else{
+                    break;
+                }
+        }
+        x=piece.getLocation().getX();
+        y=piece.getLocation().getY();
+        while(x<9&&y<9){
+               x--;
+               y++;
+                if(mat.getPiece(x, y)==null)
+                    moves.add(new Location(x,y));
+                else if(!piece.isSameColor(mat.getPiece(x, y))){
+                    moves.add(new Location(x,y));
+                    break;
+                }
+                else{
+                    break;
+                }
+        }
+        x=piece.getLocation().getX();
+        y=piece.getLocation().getY();
+        while(x<9&&y>0){
+               x++;
+               y--;
+                if(mat.getPiece(x, y)==null)
+                    moves.add(new Location(x,y));
+                else if(!piece.isSameColor(mat.getPiece(x, y))){
+                    moves.add(new Location(x,y));
+                    break;
+                }
+                else{
+                    break;
+                }
         }
         //just bishop
         return moves;
@@ -252,7 +366,27 @@ public class ValidMoves {
                 if(mat.getPiece(x, y+2)==null)
                     move.add(new Location(x,y+2));
         }
-        System.out.println(move);
+        //cap
+        if(p.isBlack()){
+            if(mat.getPiece(x+1, y-1)!=null)
+                if(!(mat.getPiece(x+1, y-1).isSameColor(p)))
+                    move.add(new Location(x+1,y-1));
+        }
+        else{
+            if(mat.getPiece(x+1, y+1)!=null)
+                if(!(mat.getPiece(x+1, y-1).isSameColor(p)))
+                    move.add(new Location(x+1,y+1));
+        }
+        if(p.isBlack()){
+            if(mat.getPiece(x-1, y-1)!=null)
+                if(!(mat.getPiece(x-1, y-1).isSameColor(p)))
+                    move.add(new Location(x-1,y-1));
+        }
+        else{
+            if(mat.getPiece(x-1, y+1)!=null)
+                if(!(mat.getPiece(x-1, y+1).isSameColor(p)))
+                    move.add(new Location(x-1,y+1));
+        }
         return move;
     }
 }
