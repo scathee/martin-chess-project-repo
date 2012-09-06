@@ -86,7 +86,7 @@ public class Mat {
     public void addPieces(){
         //white pieces
         for(int i=0;i<8;i++){
-            board[i][1]=new Pawn(false, i, 2);
+            board[i][1]=new Pawn(false, i+1, 2);
         }
         board[0][0]=new Rook(false,1,1);
         board[7][0]=new Rook(false,8,1);
@@ -98,7 +98,7 @@ public class Mat {
         board[3][0]=new Queen(false,4,1);
         //black pieces
         for(int i=0;i<8;i++){
-            board[i][6]=new Pawn(true, i, 7);
+            board[i][6]=new Pawn(true, i+1, 7);
         }
         board[0][7]=new Rook(true,1,8);
         board[7][7]=new Rook(true,8,8);
@@ -113,6 +113,8 @@ public class Mat {
         return board;
     }
     public Piece getPiece(int x,int y){
+        if(x>8||x<1||y>8||y<1)
+            return null;
         return board[x-1][y-1];
     }
     public static char rowNumberToChar(int i){

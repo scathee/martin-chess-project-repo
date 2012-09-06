@@ -62,9 +62,9 @@ public class ValidMoves {
         //down
         if(y!=1){
             for(int z=y-1;z>0;z--){
-                if(mat.getPiece(z, y)==null)
+                if(mat.getPiece(x, z)==null)
                     moves.add(new Location(x,z));
-                else if(!piece.isSameColor(mat.getPiece(z, y))){
+                else if(!piece.isSameColor(mat.getPiece(x, z))){
                     moves.add(new Location(x,z));
                     break;
                 }
@@ -76,9 +76,9 @@ public class ValidMoves {
         //up
         if(y!=8){
             for(int z=y+1;z<9;z++){
-                if(mat.getPiece(z, y)==null)
+                if(mat.getPiece(x, z)==null)
                     moves.add(new Location(x,z));
-                else if(!piece.isSameColor(mat.getPiece(z, y))){
+                else if(!piece.isSameColor(mat.getPiece(x, z))){
                     moves.add(new Location(x,z));
                     break;
                 }
@@ -87,17 +87,62 @@ public class ValidMoves {
                 }
             }
         }
-        return mat.getAllLocations();
+        return moves;
+        //return mat.getAllLocations();
     }
     public static ArrayList<Location> ForBishop(Piece p,Mat mat){
         ArrayList<Location> moves=new ArrayList<Location>();
         int x=p.getLocation().getX();
         int y=p.getLocation().getY();/*
         if(y!=8&&x!=8){
-            for(int z=y+1;z<9;z++){
+            while()
+        }*/
+        return mat.getAllLocations();
+    }
+    public static ArrayList<Location> ForQueen(Piece piece,Mat mat){
+        //just rook
+        ArrayList<Location> moves=new ArrayList<Location>();
+        int x=piece.getLocation().getX();
+        int y=piece.getLocation().getY();
+        //need four of them, check to left then right and glad i put this in its own class becasue so long
+        //check to the right
+        //makes sure not on rightmost so it won't throw an indexoutofbounds
+        if(x!=8){
+            for(int z=x+1;z<9;z++){
                 if(mat.getPiece(z, y)==null)
-                    moves.add(new Location(x,z));
+                    moves.add(new Location(z,y));
                 else if(!piece.isSameColor(mat.getPiece(z, y))){
+                    moves.add(new Location(z,y));
+                    break;
+                }
+                else{
+                    break;
+                }
+            }
+        }
+        //check to the left
+        //checks if its on 1 so its doenst go out of bounds
+        //and wont have to check it
+        if(x!=1){
+            for(int z=x-1;z>0;z--){
+                if(mat.getPiece(z, y)==null)
+                    moves.add(new Location(z,y));
+                else if(!piece.isSameColor(mat.getPiece(z, y))){
+                    moves.add(new Location(z,y));
+                    break;
+                }
+                else{
+                    break;
+                }
+            }
+        }
+        //now check up and down
+        //down
+        if(y!=1){
+            for(int z=y-1;z>0;z--){
+                if(mat.getPiece(x, z)==null)
+                    moves.add(new Location(x,z));
+                else if(!piece.isSameColor(mat.getPiece(x, z))){
                     moves.add(new Location(x,z));
                     break;
                 }
@@ -105,14 +150,23 @@ public class ValidMoves {
                     break;
                 }
             }
-        }*/
-        return mat.getAllLocations();
-    }
-    public static ArrayList<Location> ForQueen(Piece p,Mat mat){
-        ArrayList<Location> moves=new ArrayList<Location>();
-        int x=p.getLocation().getX();
-        int y=p.getLocation().getY();
-        return mat.getAllLocations();
+        }
+        //up
+        if(y!=8){
+            for(int z=y+1;z<9;z++){
+                if(mat.getPiece(x, z)==null)
+                    moves.add(new Location(x,z));
+                else if(!piece.isSameColor(mat.getPiece(x, z))){
+                    moves.add(new Location(x,z));
+                    break;
+                }
+                else{
+                    break;
+                }
+            }
+        }
+        //just bishop
+        return moves;
     }
      //fixed
     public static ArrayList<Location> ForKnight(Piece p,Mat mat){
@@ -167,15 +221,15 @@ public class ValidMoves {
         //removes when running over same color
         for(int i=0;i<validLocations.size();i++){
             if(mat.getPiece(validLocations.get(i))!=null){
-                if(mat.getPiece(validLocations.get(i)).isBlack()==p.isBlack()){
+                if(mat.getPiece(validLocations.get(i)).isSameColor(p)){
                     validLocations.remove(i);
                     i--;
                 }
             }
         }
-        return mat.getAllLocations();
+        return validLocations;
     }
-    public static ArrayList<Location> ForPawn(Piece p,Mat mat){/*
+    public static ArrayList<Location> ForPawn(Piece p,Mat mat){
         int x=p.getLocation().getX();
         int y=p.getLocation().getY();
         System.out.println(x+" "+y);
@@ -188,8 +242,17 @@ public class ValidMoves {
             if(mat.getPiece(x, y+1)==null)
                 move.add(new Location(x,y+1));
         }
+        if(p.isBlack()){
+            if(mat.getPiece(x, y-1)==null)
+                if(mat.getPiece(x, y-2)==null)
+                    move.add(new Location(x,y-2));
+        }
+        else{
+            if(mat.getPiece(x, y+1)==null)
+                if(mat.getPiece(x, y+2)==null)
+                    move.add(new Location(x,y+2));
+        }
         System.out.println(move);
-        return move;*/
-        return mat.getAllLocations();
+        return move;
     }
 }
