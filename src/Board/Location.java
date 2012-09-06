@@ -11,11 +11,8 @@ public class Location {
     int x;
     int y;
     public Location(int x, int y){
-        if(!(x>8||y>1)){
-            this.x=x;
-            this.y=y;
-            //todo throw error
-        }
+        this.x=x;
+        this.y=y;
     }
     public Location(char c, char d){
         x=Mat.rowCharToNumber(c);

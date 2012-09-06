@@ -16,9 +16,13 @@ public class Pawn extends Piece{
     boolean firstMoveDouble;//for enponsont literally it just is true if the first turn a pawn moved was a double and it hasnt moved sience
     public Pawn(boolean black, int x, int y){
         super(black, x, y);
+        hasMoved=false;
+        firstMoveDouble=false;
     }
     public Pawn(boolean black, Location l){
         super(black, l);
+        hasMoved=false;
+        firstMoveDouble=false;
     }
     @Override
     public int getValue() {

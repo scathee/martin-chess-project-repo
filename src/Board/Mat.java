@@ -40,10 +40,12 @@ public class Mat {
     }
     //moves pieces returns false if you can't do that
     public void movePiece(Location oldLoc, Location newLoc){
+        board[oldLoc.getX()-1][oldLoc.getY()-1].setLocation(newLoc.getX(), newLoc.getY());
         board[newLoc.getX()-1][newLoc.getY()-1]=board[oldLoc.getX()-1][oldLoc.getY()-1];
         board[oldLoc.getX()-1][oldLoc.getY()-1]=null;
     }
     public void movePiece(Move m){
+        board[m.getOldX()-1][m.getOldY()-1].setLocation(m.getNewX(), m.getNewY());
         board[m.getNewX()-1][m.getNewY()-1]=board[m.getOldX()-1][m.getOldY()-1];
         board[m.getOldX()-1][m.getOldY()-1]=null;
     }
@@ -84,28 +86,28 @@ public class Mat {
     public void addPieces(){
         //white pieces
         for(int i=0;i<8;i++){
-            board[i][1]=new Pawn(false, 2, i);
+            board[i][1]=new Pawn(false, i, 2);
         }
         board[0][0]=new Rook(false,1,1);
-        board[7][0]=new Rook(false,1,8);
-        board[6][0]=new Knight(false,1,7);
-        board[1][0]=new Knight(false,1,2);
-        board[5][0]=new Bishop(false,1,6);
-        board[2][0]=new Bishop(false,1,3);
-        board[4][0]=new King(false,1,5);
-        board[3][0]=new Queen(false,1,4);
+        board[7][0]=new Rook(false,8,1);
+        board[6][0]=new Knight(false,7,1);
+        board[1][0]=new Knight(false,2,1);
+        board[5][0]=new Bishop(false,6,1);
+        board[2][0]=new Bishop(false,3,1);
+        board[4][0]=new King(false,5,1);
+        board[3][0]=new Queen(false,4,1);
         //black pieces
         for(int i=0;i<8;i++){
-            board[i][6]=new Pawn(true, 7, i);
+            board[i][6]=new Pawn(true, i, 7);
         }
-        board[0][7]=new Rook(true,8,1);
+        board[0][7]=new Rook(true,1,8);
         board[7][7]=new Rook(true,8,8);
-        board[6][7]=new Knight(true,8,7);
-        board[1][7]=new Knight(true,8,2);
-        board[5][7]=new Bishop(true,8,6);
-        board[2][7]=new Bishop(true,8,3);
-        board[4][7]=new King(true,8,5);
-        board[3][7]=new Queen(true,8,4);
+        board[6][7]=new Knight(true,7,8);
+        board[1][7]=new Knight(true,2,8);
+        board[5][7]=new Bishop(true,6,8);
+        board[2][7]=new Bishop(true,3,8);
+        board[4][7]=new King(true,5,8);
+        board[3][7]=new Queen(true,4,8);
     }
     public Piece[][] getBoard(){
         return board;
@@ -307,5 +309,19 @@ public class Mat {
         if(isWhiteKing==false)             
             return true;
         return true;
+    }
+    public ArrayList<Piece> getAllPieces(){
+        ArrayList<Piece>dapolice=new ArrayList<>();
+        for(int i=0;i<8;i++)
+            for(int z=0;z<8;z++)
+                dapolice.add(board[i][z]);
+        return dapolice;
+    }
+    public ArrayList<Location> getAllLocations(){
+        ArrayList<Location>dapolice=new ArrayList<>();
+        for(int i=1;i<9;i++)
+            for(int z=1;z<9;z++)
+                dapolice.add(new Location(i,z));
+        return dapolice;
     }
 }
