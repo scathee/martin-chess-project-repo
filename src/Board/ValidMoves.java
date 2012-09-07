@@ -8,7 +8,7 @@ import Pieces.Pawn;
 import Pieces.Piece;
 import java.util.ArrayList;
 
-/**
+/*
  * this class just has a bunch of static methods for finding if a move is valid 
  * or not
  * @author instantcake
@@ -348,6 +348,7 @@ public class ValidMoves {
         int y=p.getLocation().getY();
         System.out.println(x+" "+y);
         ArrayList<Location>move=new ArrayList<Location>();
+        Pawn pawn=(Pawn)p;
         if(p.isBlack()){
             if(mat.getPiece(x, y-1)==null)
                 move.add(new Location(x,y-1));
@@ -356,15 +357,18 @@ public class ValidMoves {
             if(mat.getPiece(x, y+1)==null)
                 move.add(new Location(x,y+1));
         }
+        //double move
         if(p.isBlack()){
-            if(mat.getPiece(x, y-1)==null)
-                if(mat.getPiece(x, y-2)==null)
-                    move.add(new Location(x,y-2));
+            if(pawn.getHasMoved()==false)//so cant alwalys double move
+                if(mat.getPiece(x, y-1)==null)
+                    if(mat.getPiece(x, y-2)==null)
+                        move.add(new Location(x,y-2));
         }
         else{
-            if(mat.getPiece(x, y+1)==null)
-                if(mat.getPiece(x, y+2)==null)
-                    move.add(new Location(x,y+2));
+            if(pawn.getHasMoved()==false)
+                if(mat.getPiece(x, y+1)==null)
+                    if(mat.getPiece(x, y+2)==null)
+                        move.add(new Location(x,y+2));
         }
         //cap
         if(p.isBlack()){
@@ -387,6 +391,7 @@ public class ValidMoves {
                 if(!(mat.getPiece(x-1, y+1).isSameColor(p)))
                     move.add(new Location(x-1,y+1));
         }
+        //en pa sounttddd
         return move;
     }
 }

@@ -7,6 +7,7 @@ import ChessGame.Move;
 import Pieces.*;//need to use all of them
 
 import java.util.ArrayList;
+import java.util.Scanner;
 /**
  * 
  * @author hzwerlla14
@@ -82,6 +83,78 @@ public class Mat {
     */
     public Piece getPiece(Location l){
         return board[l.getX()-1][l.getY()-1];
+    }
+    public void getPawnUpgrade(char color){
+        if(color=='W'){
+            for(int i=0;i<8;i++){
+                if(board[i][7]instanceof Pawn){
+                    System.out.println("what piece do you want to upgrade your pawn at "+new Location(i+1,8)+" to?");
+                    Scanner s=new Scanner(System.in);
+                    do{
+                        color=s.nextLine().charAt(0);//micht as well reuse it
+                        if(color=='P'||color=='K')//yeah you cant make a pawn to a pawn or a king
+                         color='z';
+                    }while(Mat.isCharValid(color));
+                    switch(color){
+                        case 'Q':
+                            board[i][7]=new Queen(false, new Location(i+1,8));
+                            break;
+                        case 'N':
+                            board[i][7]=new Knight(false, new Location(i+1,8));
+                            break;
+                        case 'R':
+                            board[i][7]=new Rook(false, new Location(i+1,8));
+                            break;
+                        case 'B':
+                            board[i][7]=new Bishop(false, new Location(i+1,8));
+                            break;                          
+                    }
+                }
+            }
+        }
+        else{
+            for(int i=0;i<8;i++){
+                if(board[i][0]instanceof Pawn){
+                    System.out.println("what piece do you want to upgrade your pawn at "+new Location(i+1,8)+" to?");
+                    Scanner s=new Scanner(System.in);
+                    do{
+                        color=s.nextLine().charAt(0);//micht as well reuse it
+                        if(color=='P'||color=='K')//yeah you cant make a pawn to a pawn or a king
+                         color='z';
+                    }while(Mat.isCharValid(color));
+                    switch(color){
+                        case 'Q':
+                            board[i][0]=new Queen(true, new Location(i+1,1));
+                            break;
+                        case 'N':
+                            board[i][0]=new Knight(true, new Location(i+1,1));
+                            break;
+                        case 'R':
+                            board[i][0]=new Rook(true, new Location(i+1,1));
+                            break;
+                        case 'B':
+                            board[i][0]=new Bishop(true, new Location(i+1,1));
+                            break;                          
+                    }
+                }
+            }
+        }
+    }
+    public void getPawnCompuUpgrade(char color){
+        if(color=='W'){
+            for(int i=0;i<8;i++){
+                if(board[i][7]instanceof Pawn){
+                    board[i][7]=new Queen(false, new Location(i+1,8));
+                }
+            }
+        }
+        else{
+            for(int i=0;i<8;i++){
+                if(board[i][0]instanceof Pawn){
+                    board[i][0]=new Queen(true, new Location(i+1,1));
+                }
+            }
+        }
     }
     public void addPieces(){
         //white pieces
@@ -325,5 +398,10 @@ public class Mat {
             for(int z=1;z<9;z++)
                 dapolice.add(new Location(i,z));
         return dapolice;
+    }
+    public static boolean isCharValid(char c){
+        if(c=='Q'||c=='K'||c=='P'||c=='N'||c=='R'||c=='B')
+            return true;
+        return false;
     }
 }

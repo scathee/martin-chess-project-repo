@@ -62,50 +62,15 @@ public class Chess {
                 }
                 theBoard.printOutBoard();
             }
+            //now checks if any pawns to upgrade:
+            theBoard.getPawnUpgrade('W');
             //now begins computer prtion
-            //nope
-            canMoveThere=false;
-            while(canMoveThere==false){
-                String input=omnomnom.nextLine();
-                if(input.equals("log")){
-                    for(Move m:log)
-                        System.out.println(m);
-                    continue;//jump back to top of loop
-                }
-                if(input.length()!=7){
-                    System.out.println("Wrong Syntax1111!");
-                    continue;
-                }
-                parsedData=parseInput(input,theBoard);
-                if(parsedData!=null){
-                    ArrayList<Location>possibleMoves=theBoard.getValidMoves(theBoard.getPiece(parsedData.getOldLoc()));
-                    if(possibleMoves!=null){
-                        for(Location loc:possibleMoves){
-                            if(loc.equals(parsedData.getNewLoc())){
-                                canMoveThere=true;
-                                break;
-                            }
-                        }
-                    }
-                    if(canMoveThere==true){
-                        log.add(parsedData);
-                        theBoard.movePiece(parsedData.getOldLoc(),parsedData.getNewLoc());
-                        //debug
-                        for(Location l:ValidMoves.ForRook(theBoard.getPiece(1, 1), theBoard)){
-                            System.out.println(l);
-                        }
-                    }
-                    else{
-                        System.out.println("illegal move\n\n");
-                    }
-                }
-                else{
-                    System.out.println("that move goes off the board!");
-                }
-                theBoard.printOutBoard();
-            }
+           
             //out of main loop of execution
             //this thing is horribally done but done in a rush to work will be refined later
+            
+            //now checks if pawns for computer to upgrade
+            theBoard.getPawnCompuUpgrade('B');
             //checks if game is over
             if(Mat.isThereKing(theBoard.getBoard())==false){
                 if(Mat.isThereBlackKing(theBoard.getBoard())){
