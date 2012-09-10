@@ -190,6 +190,9 @@ public class Mat {
             return null;
         return board[x-1][y-1];
     }
+    public void removePiece(Location l){
+        board[l.getX()][l.getY()]=null;
+    }
     public static char rowNumberToChar(int i){
         char c=0;
         switch(i){

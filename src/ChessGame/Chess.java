@@ -5,6 +5,7 @@
 package ChessGame;
 
 import Board.*;
+import Pieces.Pawn;
 import Pieces.Piece;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -50,6 +51,29 @@ public class Chess {
                         }
                     }
                     if(canMoveThere==true){
+                        //check for pawn double move
+                        if(theBoard.getPiece(parsedData.getOldLoc())instanceof Pawn){
+                            Pawn p=(Pawn)(theBoard.getPiece(parsedData.getOldLoc()));
+                            p.setHasMoved(true);
+                            if(Math.abs(parsedData.getOldY()-parsedData.getNewY())==2){
+                                p.setFirstMoveDouble(true);
+                            }
+                            else{
+                                p.setFirstMoveDouble(false);
+                            }
+                        }
+                        //einpawonsusonuttt
+                        //do later
+                        if(theBoard.getPiece(parsedData.getOldLoc())instanceof Pawn){
+                            if(Math.abs(parsedData.getNewX()-parsedData.getOldX())==1){
+                                if(theBoard.getPiece(parsedData.getOldLoc()).isBlack()){
+                                
+                                }
+                                else{
+                                
+                                }
+                            }
+                        }
                         log.add(parsedData);
                         theBoard.movePiece(parsedData.getOldLoc(),parsedData.getNewLoc());
                     }

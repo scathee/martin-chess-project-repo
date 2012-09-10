@@ -391,7 +391,35 @@ public class ValidMoves {
                 if(!(mat.getPiece(x-1, y+1).isSameColor(p)))
                     move.add(new Location(x-1,y+1));
         }
-        //en pa sounttddd
+        //en pa sounttdddhuohuohuouuouuu
+        if(p.isBlack()){
+            if(mat.getPiece(x-1,y)instanceof Pawn){
+                Pawn pawn2=(Pawn)(mat.getPiece(x-1,y));
+                if(pawn2.getHasMoved()==true)
+                    if(pawn2.getFirstMoveDouble()==true)
+                        move.add(new Location(x-1,y-1));
+            }
+            if(mat.getPiece(x+1,y)instanceof Pawn){
+                Pawn pawn2=(Pawn)(mat.getPiece(x+1,y));
+                if(pawn2.getHasMoved()==true)
+                    if(pawn2.getFirstMoveDouble()==true)
+                        move.add(new Location(x+1,y-1));
+            }
+        }
+        else{
+            if(mat.getPiece(x-1,y)instanceof Pawn){
+                Pawn pawn2=(Pawn)(mat.getPiece(x-1,y));
+                if(pawn2.getHasMoved()==true)
+                    if(pawn2.getFirstMoveDouble()==true)
+                        move.add(new Location(x-1,y+1));
+            }
+            if(mat.getPiece(x+1,y)instanceof Pawn){
+                Pawn pawn2=(Pawn)(mat.getPiece(x+1,y));
+                if(pawn2.getHasMoved()==true)
+                    if(pawn2.getFirstMoveDouble()==true)
+                        move.add(new Location(x+1,y+1));
+            }
+        }
         return move;
     }
 }
