@@ -5,6 +5,7 @@
 package ChessGame;
 
 import Board.*;
+import Pieces.King;
 import Pieces.Pawn;
 import Pieces.Piece;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class Chess {
                 parsedData=parseInput(input,theBoard);
                 if(parsedData!=null){
                     ArrayList<Location>possibleMoves=theBoard.getValidMoves(theBoard.getPiece(parsedData.getOldLoc()));
+                    ArrayList<Location>allPossibleMoves=theBoard.getAllPossibleBlackMoves();
                     if(possibleMoves!=null){
                         for(Location loc:possibleMoves){
                             if(loc.equals(parsedData.getNewLoc())){
@@ -50,14 +52,44 @@ public class Chess {
                             }
                         }
                     }
+                    boolean hasToGetOutOfCheck=false;
+                        //check if king is in check
+                        for(Location loc:allPossibleMoves){
+                            if(theBoard.getWhiteKing().getLocation().equals(loc)){
+                                System.out.println("King is in check");
+                                hasToGetOutOfCheck=true;
+                                Piece[][]board=theBoard.getBoard().clone();
+                                //move the piece
+                                board[parsedData.getOldX()-1][parsedData.getOldY()-1].setLocation(parsedData.getNewX(), parsedData.getNewY());
+                                board[parsedData.getNewX()-1][parsedData.getNewY()-1]=board[parsedData.getOldX()-1][parsedData.getOldY()-1];
+                                board[parsedData.getOldX()-1][parsedData.getOldY()-1]=null;
+                                ArrayList<Location>newMoves=new ArrayList<Location>();
+                                for(int x=0;x<8;x++)
+                                    for(int y=0;y<8;y++)
+                                        if(board[x][y]instanceof Piece)
+                                            newMoves.addAll(Mat.getValidMoves(board[x][y],board));
+                                King k=null;
+                                 for(int x=0;x<8;x++)
+                                    for(int y=0;y<8;y++)
+                                        if(board[x][y]instanceof King)
+                                            k=(King)board[x][y];
+                                for(Location loc2:newMoves){
+                                    if(board[loc2.getX()-1][loc2.getY()-1].isBlack())
+                                        if(loc2.equals(k))
+                                            canMoveThere=false;
+                                }
+                                break;
+                            }
+                    }
+                        
                     if(canMoveThere==true){
                         //check for pawn double move
                         if(theBoard.getPiece(parsedData.getOldLoc())instanceof Pawn){
-                            Pawn p=(Pawn)(theBoard.getPiece(parsedData.getOldLoc()));
-                            p.setHasMoved(true);
-                            if(Math.abs(parsedData.getOldY()-parsedData.getNewY())==2){
-                                p.setFirstMoveDouble(true);
-                            }
+                        Pawn p=(Pawn)(theBoard.getPiece(parsedData.getOldLoc()));
+                        p.setHasMoved(true);
+                        if(Math.abs(parsedData.getOldY()-parsedData.getNewY())==2){
+                            p.setFirstMoveDouble(true);
+                           }
                             else{
                                 p.setFirstMoveDouble(false);
                             }

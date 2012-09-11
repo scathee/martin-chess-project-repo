@@ -21,6 +21,9 @@ public class Mat {
         board=new Piece[8][8];
         addPieces();//made into its own function for constructor readability
     }
+    public Mat(Piece[][]a){
+        board=a;
+    }
     /*
      * prints
      */
@@ -75,6 +78,28 @@ public class Mat {
         }
         if(a instanceof King){
             list=ValidMoves.ForKing(a,this);
+        }
+        return list;
+    }
+    public static ArrayList<Location> getValidMoves(Piece a,Piece[][] m){
+        ArrayList<Location> list=new ArrayList<Location>();
+        if(a instanceof Bishop){
+            list=ValidMoves.ForBishop(a,new Mat(m));
+        }
+        if(a instanceof Pawn){
+            list=ValidMoves.ForPawn(a,new Mat(m));
+        }
+        if(a instanceof Knight){
+            list=ValidMoves.ForKnight(a,new Mat(m));
+        }
+        if(a instanceof Rook){
+            list=ValidMoves.ForRook(a,new Mat(m));
+        }
+        if(a instanceof Queen){
+            list=ValidMoves.ForQueen(a,new Mat(m));
+        }
+        if(a instanceof King){
+            list=ValidMoves.ForKing(a,new Mat(m));
         }
         return list;
     }
@@ -192,6 +217,40 @@ public class Mat {
     }
     public void removePiece(Location l){
         board[l.getX()][l.getY()]=null;
+    }
+    public ArrayList<Location> getAllPossibleWhiteMoves(){
+        ArrayList<Location>abcd=new ArrayList<>();
+        for(int x=0;x<8;x++)
+            for(int y=0;y<8;y++)
+                if(board[x][y]!=null)
+                    if(board[x][y].isBlack()==false)
+                        abcd.addAll(this.getValidMoves(board[x][y]));
+        return abcd;
+    }
+    public ArrayList<Location> getAllPossibleBlackMoves(){
+        ArrayList<Location>abcd=new ArrayList<>();
+        for(int x=0;x<8;x++)
+            for(int y=0;y<8;y++)
+                if(board[x][y]!=null)
+                    if(board[x][y].isBlack()==true)
+                        abcd.addAll(this.getValidMoves(board[x][y]));
+        return abcd;
+    }
+    public King getWhiteKing(){
+        for(int x=0;x<8;x++)
+            for(int y=0;y<8;y++)
+                if(board[x][y]instanceof King)
+                    if(board[x][y].isBlack()==false)
+                        return (King)board[x][y];
+        return null;
+    }
+    public King getBlackKing(){
+        for(int x=0;x<8;x++)
+            for(int y=0;y<8;y++)
+                if(board[x][y]instanceof King)
+                    if(board[x][y].isBlack()==true)
+                        return (King)board[x][y];
+        return null;
     }
     public static char rowNumberToChar(int i){
         char c=0;
