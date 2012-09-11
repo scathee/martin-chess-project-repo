@@ -377,9 +377,9 @@ public class ValidMoves {
                     move.add(new Location(x+1,y-1));
         }
         else{
-            if(mat.getPiece(x+1, y+1)!=null)
+            if(mat.getPiece(x+1, y-1)!=null)
                 if(!(mat.getPiece(x+1, y-1).isSameColor(p)))
-                    move.add(new Location(x+1,y+1));
+                    move.add(new Location(x+1,y-1));
         }
         if(p.isBlack()){
             if(mat.getPiece(x-1, y-1)!=null)

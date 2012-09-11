@@ -81,27 +81,9 @@ public class Mat {
         }
         return list;
     }
-    public static ArrayList<Location> getValidMoves(Piece a,Piece[][] m){
-        ArrayList<Location> list=new ArrayList<Location>();
-        if(a instanceof Bishop){
-            list=ValidMoves.ForBishop(a,new Mat(m));
-        }
-        if(a instanceof Pawn){
-            list=ValidMoves.ForPawn(a,new Mat(m));
-        }
-        if(a instanceof Knight){
-            list=ValidMoves.ForKnight(a,new Mat(m));
-        }
-        if(a instanceof Rook){
-            list=ValidMoves.ForRook(a,new Mat(m));
-        }
-        if(a instanceof Queen){
-            list=ValidMoves.ForQueen(a,new Mat(m));
-        }
-        if(a instanceof King){
-            list=ValidMoves.ForKing(a,new Mat(m));
-        }
-        return list;
+    public boolean isWhiteKingInCheck(){
+        
+        return false;
     }
     /*
     * sadly this is the best way to do it
@@ -217,6 +199,9 @@ public class Mat {
     }
     public void removePiece(Location l){
         board[l.getX()][l.getY()]=null;
+    }
+    public void addNewPiece(Piece p,Location l){
+    
     }
     public ArrayList<Location> getAllPossibleWhiteMoves(){
         ArrayList<Location>abcd=new ArrayList<>();

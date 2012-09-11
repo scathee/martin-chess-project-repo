@@ -53,34 +53,11 @@ public class Chess {
                         }
                     }
                     boolean hasToGetOutOfCheck=false;
-                        //check if king is in check
-                        for(Location loc:allPossibleMoves){
-                            if(theBoard.getWhiteKing().getLocation().equals(loc)){
-                                System.out.println("King is in check");
-                                hasToGetOutOfCheck=true;
-                                Piece[][]board=theBoard.getBoard().clone();
-                                //move the piece
-                                board[parsedData.getOldX()-1][parsedData.getOldY()-1].setLocation(parsedData.getNewX(), parsedData.getNewY());
-                                board[parsedData.getNewX()-1][parsedData.getNewY()-1]=board[parsedData.getOldX()-1][parsedData.getOldY()-1];
-                                board[parsedData.getOldX()-1][parsedData.getOldY()-1]=null;
-                                ArrayList<Location>newMoves=new ArrayList<Location>();
-                                for(int x=0;x<8;x++)
-                                    for(int y=0;y<8;y++)
-                                        if(board[x][y]instanceof Piece)
-                                            newMoves.addAll(Mat.getValidMoves(board[x][y],board));
-                                King k=null;
-                                 for(int x=0;x<8;x++)
-                                    for(int y=0;y<8;y++)
-                                        if(board[x][y]instanceof King)
-                                            k=(King)board[x][y];
-                                for(Location loc2:newMoves){
-                                    if(board[loc2.getX()-1][loc2.getY()-1].isBlack())
-                                        if(loc2.equals(k))
-                                            canMoveThere=false;
-                                }
-                                break;
-                            }
-                    }
+                    //check if king is in check
+                    if(theBoard.isWhiteKingInCheck())
+                    {
+                    
+                    }   
                         
                     if(canMoveThere==true){
                         //check for pawn double move
@@ -107,7 +84,14 @@ public class Chess {
                             }
                         }
                         log.add(parsedData);
+                        Piece p=theBoard.getPiece(parsedData.getNewLoc());
                         theBoard.movePiece(parsedData.getOldLoc(),parsedData.getNewLoc());
+                        if(theBoard.isWhiteKingInCheck())
+                        {
+                            theBoard.movePiece(parsedData.getNewLoc(),parsedData.getOldLoc());
+                            theBoard.addPiece(p,parsedData.getNewLoc());
+                            System.out.println("you can't move into check");
+                        }
                     }
                     else{
                         System.out.println("illegal move\n\n");
