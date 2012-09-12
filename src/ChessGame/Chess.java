@@ -52,21 +52,23 @@ public class Chess {
                             }
                         }
                     }
-                    boolean hasToGetOutOfCheck=false;
                     //check if king is in check
                     if(theBoard.isWhiteKingInCheck())
                     {
-                    
-                    }   
-                        
+                        if(!theBoard.moveDoesntPutInCheck(parsedData)){
+                            System.out.println("you must get out of check!");
+                            theBoard.printOutBoard();
+                            continue;
+                        }
+                    }     
                     if(canMoveThere==true){
                         //check for pawn double move
                         if(theBoard.getPiece(parsedData.getOldLoc())instanceof Pawn){
-                        Pawn p=(Pawn)(theBoard.getPiece(parsedData.getOldLoc()));
-                        p.setHasMoved(true);
-                        if(Math.abs(parsedData.getOldY()-parsedData.getNewY())==2){
-                            p.setFirstMoveDouble(true);
-                           }
+                            Pawn p=(Pawn)(theBoard.getPiece(parsedData.getOldLoc()));
+                            p.setHasMoved(true);
+                            if(Math.abs(parsedData.getOldY()-parsedData.getNewY())==2){
+                                p.setFirstMoveDouble(true);
+                            }
                             else{
                                 p.setFirstMoveDouble(false);
                             }
@@ -83,15 +85,8 @@ public class Chess {
                                 }
                             }
                         }
+                        theBoard.movePiece(parsedData.getOldLoc(), parsedData.getNewLoc());
                         log.add(parsedData);
-                        Piece p=theBoard.getPiece(parsedData.getNewLoc());
-                        theBoard.movePiece(parsedData.getOldLoc(),parsedData.getNewLoc());
-                        if(theBoard.isWhiteKingInCheck())
-                        {
-                            theBoard.movePiece(parsedData.getNewLoc(),parsedData.getOldLoc());
-                            theBoard.addPiece(p,parsedData.getNewLoc());
-                            System.out.println("you can't move into check");
-                        }
                     }
                     else{
                         System.out.println("illegal move\n\n");

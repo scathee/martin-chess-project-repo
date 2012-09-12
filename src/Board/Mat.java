@@ -82,14 +82,59 @@ public class Mat {
         return list;
     }
     public boolean isWhiteKingInCheck(){
-        
+        ArrayList<Location>allofthem=new ArrayList<>();
+        for(int x=0;x<8;x++)
+            for(int y=0;y<8;y++)
+                if(board[x][y]instanceof Piece)
+                    if(board[x][y].isBlack()){
+                        allofthem.addAll(getValidMoves(board[x][y]));
+                    } 
+        for(Location l:allofthem){
+            if(l.equals(this.getWhiteKing().getLocation())){
+                return true;
+            }
+        }
         return false;
+    }
+    public boolean moveDoesntPutInCheck(Move m){
+        Piece[][]board2=new Piece[8][8];
+        for(int x=0;x<8;x++)
+            for(int y=0;y<8;y++)
+                    board2[x][y]=Mat.newPiece(board[x][y]);
+        board[m.getOldX()-1][m.getOldY()-1].setLocation(m.getNewX(), m.getNewY());
+        board[m.getNewX()-1][m.getNewY()-1]=board[m.getOldX()-1][m.getOldY()-1];
+        board[m.getOldX()-1][m.getOldY()-1]=null;
+        if(isWhiteKingInCheck()){
+            for(int x=0;x<8;x++)
+                for(int y=0;y<8;y++)
+                    board[x][y]=Mat.newPiece(board2[x][y]);
+            return false;
+        }
+        for(int x=0;x<8;x++)
+            for(int y=0;y<8;y++)
+                board[x][y]=Mat.newPiece(board2[x][y]);
+        return true;
     }
     /*
     * sadly this is the best way to do it
     */
     public Piece getPiece(Location l){
         return board[l.getX()-1][l.getY()-1];
+    }
+    public static Piece newPiece(Piece p){
+        if(p instanceof King)
+            return new King(p.isBlack(),p.getLocation());
+        if(p instanceof Pawn)
+            return new Pawn(p.isBlack(),p.getLocation());
+        if(p instanceof Rook)
+            return new Rook(p.isBlack(),p.getLocation());
+        if(p instanceof Knight)
+            return new Knight(p.isBlack(),p.getLocation());
+        if(p instanceof Bishop)
+            return new Bishop(p.isBlack(),p.getLocation());
+        if(p instanceof Queen)
+            return new Queen(p.isBlack(),p.getLocation());
+        return null;
     }
     public void getPawnUpgrade(char color){
         if(color=='W'){
