@@ -341,6 +341,8 @@ public class ValidMoves {
                 }
             }
         }
+        //castle
+        validLocations.add(new Location(x-2,y));
         return validLocations;
     }
     public static ArrayList<Location> ForPawn(Piece p,Mat mat){

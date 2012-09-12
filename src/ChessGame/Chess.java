@@ -73,6 +73,18 @@ public class Chess {
                                 p.setFirstMoveDouble(false);
                             }
                         }
+                        if(theBoard.getPiece(parsedData.getOldLoc())instanceof King){
+                            if(theBoard.getPiece(parsedData.getOldLoc()).isBlack()){
+                                theBoard.movePiece(parsedData.getOldLoc(), parsedData.getNewLoc());
+                                if(theBoard.getPiece(new Location(8,8))!=null)
+                                    theBoard.movePiece(new Location(8,8),new Location(6,8));
+                            }
+                            else{
+                                theBoard.movePiece(parsedData.getOldLoc(), parsedData.getNewLoc());
+                                if(theBoard.getPiece(new Location(8,1))!=null)
+                                    theBoard.movePiece(new Location(8,1),new Location(6,1));
+                            }
+                        }
                         //einpawonsusonuttt
                         //do later
                         if(theBoard.getPiece(parsedData.getOldLoc())instanceof Pawn){
