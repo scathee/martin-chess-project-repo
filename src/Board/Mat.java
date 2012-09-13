@@ -96,23 +96,45 @@ public class Mat {
         }
         return false;
     }
+    public boolean isWhiteKingInCheck(Piece[][]a){
+        ArrayList<Location>allofthem=new ArrayList<>();
+        for(int x=0;x<8;x++)
+            for(int y=0;y<8;y++)
+                if(a[x][y]instanceof Piece)
+                    if(a[x][y].isBlack()){
+                        allofthem.addAll(getValidMoves(a[x][y],new Mat(a)));
+                    } 
+        for(Location l:allofthem){
+            if(l.equals(this.getWhiteKing().getLocation())){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isWhiteKingInCheckmate(){
+        ArrayList<Location>allofthem=new ArrayList<>();
+        for(int x=0;x<8;x++)
+            for(int y=0;y<8;y++)
+                if(board[x][y]instanceof Piece)
+                    if(board[x][y].isBlack()==false){
+                        allofthem=(getValidMoves(board[x][y]));
+                        for(Location l:allofthem){
+                            if(moveDoesntPutInCheck(new Move(board[x][y].getLocation(),l))==true)
+                                return false;
+                        }
+                    } 
+        return true;
+    }
     public boolean moveDoesntPutInCheck(Move m){
         Piece[][]board2=new Piece[8][8];
         for(int x=0;x<8;x++)
             for(int y=0;y<8;y++)
                     board2[x][y]=Mat.newPiece(board[x][y]);
-        board[m.getOldX()-1][m.getOldY()-1].setLocation(m.getNewX(), m.getNewY());
-        board[m.getNewX()-1][m.getNewY()-1]=board[m.getOldX()-1][m.getOldY()-1];
-        board[m.getOldX()-1][m.getOldY()-1]=null;
-        if(isWhiteKingInCheck()){
-            for(int x=0;x<8;x++)
-                for(int y=0;y<8;y++)
-                    board[x][y]=Mat.newPiece(board2[x][y]);
+        board2[m.getNewX()][m.getNewY()]=board2[m.getOldX()][m.getOldY()];
+        board2[m.getOldX()][m.getOldY()]=null;
+        if(isWhiteKingInCheck(board2)){
             return false;
         }
-        for(int x=0;x<8;x++)
-            for(int y=0;y<8;y++)
-                board[x][y]=Mat.newPiece(board2[x][y]);
         return true;
     }
     /*
@@ -246,7 +268,7 @@ public class Mat {
         board[l.getX()][l.getY()]=null;
     }
     public void addNewPiece(Piece p,Location l){
-    
+        board[l.getX()][l.getY()]=p;
     }
     public ArrayList<Location> getAllPossibleWhiteMoves(){
         ArrayList<Location>abcd=new ArrayList<>();
@@ -495,5 +517,27 @@ public class Mat {
         if(c=='Q'||c=='K'||c=='P'||c=='N'||c=='R'||c=='B')
             return true;
         return false;
+    }
+    public static ArrayList<Location> getValidMoves(Piece a,Mat m){
+        ArrayList<Location> list=new ArrayList<Location>();
+        if(a instanceof Bishop){
+            list=ValidMoves.ForBishop(a,m);
+        }
+        if(a instanceof Pawn){
+            list=ValidMoves.ForPawn(a,m);
+        }
+        if(a instanceof Knight){
+            list=ValidMoves.ForKnight(a,m);
+        }
+        if(a instanceof Rook){
+            list=ValidMoves.ForRook(a,m);
+        }
+        if(a instanceof Queen){
+            list=ValidMoves.ForQueen(a,m);
+        }
+        if(a instanceof King){
+            list=ValidMoves.ForKing(a,m);
+        }
+        return list;
     }
 }

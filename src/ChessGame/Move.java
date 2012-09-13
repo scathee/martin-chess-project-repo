@@ -22,6 +22,12 @@ public class Move {
         this.oldLoc=oldLoc;
         this.newLoc=newLoc;
     }
+    public Move(Location oldLoc, Location newLoc){
+        color='z';
+        pieceName='z';
+        this.oldLoc=oldLoc;
+        this.newLoc=newLoc;
+    }
     public String toString(){
         return color+" "+Mat.getFullPieceNameFromChar(pieceName)+" "+oldLoc+" "+newLoc;
     }

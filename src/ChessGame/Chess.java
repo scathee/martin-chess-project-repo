@@ -27,7 +27,8 @@ public class Chess {
         //finally chaecks if king is in check
         //then excepts user input with the syntax "PIECENAME SPACE NEWSPACE" ex:
         //K H1 H5 which wouldent work and they would have to remove
-        for(;;){
+        boolean checkmate=false;
+        while(checkmate==false){
             boolean canMoveThere=false;
             while(canMoveThere==false){
                 String input=omnomnom.nextLine();
@@ -55,6 +56,10 @@ public class Chess {
                     //check if king is in check
                     if(theBoard.isWhiteKingInCheck())
                     {
+                        if(theBoard.isWhiteKingInCheckmate()){
+                             checkmate=true;
+                             canMoveThere=false;
+                        }
                         if(!theBoard.moveDoesntPutInCheck(parsedData)){
                             System.out.println("you must get out of check!");
                             theBoard.printOutBoard();
@@ -119,18 +124,13 @@ public class Chess {
             //now checks if pawns for computer to upgrade
             theBoard.getPawnCompuUpgrade('B');
             //checks if game is over
-            if(Mat.isThereKing(theBoard.getBoard())==false){
-                if(Mat.isThereBlackKing(theBoard.getBoard())){
-                    System.out.println("Black Wins");
-                    break;
-                }
-                System.out.println("White Wins");
-                break;
-            }
             theBoard.printOutBoard();
         }
-        //System.out.println("thanks for playing");
+        System.out.println("thanks for playing");
     }
+    
+    
+    
     public static Move parseInput(String s, Mat b){
         //checks if number is too big, too small, or if theres nothing there
         Location oldLoc=new Location(s.charAt(2),s.charAt(3));
