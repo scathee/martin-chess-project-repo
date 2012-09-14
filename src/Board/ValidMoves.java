@@ -4,6 +4,7 @@
  */
 package Board;
 
+import Pieces.King;
 import Pieces.Pawn;
 import Pieces.Piece;
 import java.util.ArrayList;
@@ -342,7 +343,9 @@ public class ValidMoves {
             }
         }
         //castle
-        validLocations.add(new Location(x-2,y));
+        King k=(King)p;
+        if(!k.getHasMoved())
+            validLocations.add(new Location(x+2,y));
         return validLocations;
     }
     public static ArrayList<Location> ForPawn(Piece p,Mat mat){

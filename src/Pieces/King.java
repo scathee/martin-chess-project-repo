@@ -11,7 +11,7 @@ import ChessGame.Maths;
  * @author hzwerlla14
  */
 public class King extends Piece{
-    boolean hasMoved;//for castling
+    boolean hasMoved;//for castlin
     public King(boolean black, int x, int y){
         super(black, x, y);
         hasMoved=false;

@@ -78,17 +78,17 @@ public class Chess {
                                 p.setFirstMoveDouble(false);
                             }
                         }
+                        //check for king
                         if(theBoard.getPiece(parsedData.getOldLoc())instanceof King){
-                            if(theBoard.getPiece(parsedData.getOldLoc()).isBlack()){
-                                theBoard.movePiece(parsedData.getOldLoc(), parsedData.getNewLoc());
-                                if(theBoard.getPiece(new Location(8,8))!=null)
-                                    theBoard.movePiece(new Location(8,8),new Location(6,8));
-                            }
-                            else{
-                                theBoard.movePiece(parsedData.getOldLoc(), parsedData.getNewLoc());
-                                if(theBoard.getPiece(new Location(8,1))!=null)
-                                    theBoard.movePiece(new Location(8,1),new Location(6,1));
-                            }
+                            King p=(King)(theBoard.getPiece(parsedData.getOldLoc()));
+                            p.setHasMoved(true);
+                        }
+                        if(theBoard.getPiece(parsedData.getOldLoc())instanceof King){
+                          if(parsedData.getOldX()-parsedData.getNewX()==-2){
+                              theBoard.movePiece(parsedData.getOldLoc(), parsedData.getNewLoc());
+                              theBoard.movePiece(new Location(parsedData.getOldX()+3,parsedData.getOldY()), new Location(parsedData.getOldX()+1,parsedData.getOldY()));
+                              canMoveThere=false;
+                          }    
                         }
                         //einpawonsusonuttt
                         //do later
@@ -102,7 +102,9 @@ public class Chess {
                                 }
                             }
                         }
-                        theBoard.movePiece(parsedData.getOldLoc(), parsedData.getNewLoc());
+                        if(canMoveThere==true){
+                            theBoard.movePiece(parsedData.getOldLoc(), parsedData.getNewLoc());
+                        }
                         log.add(parsedData);
                     }
                     else{
