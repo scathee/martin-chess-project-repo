@@ -44,7 +44,6 @@ public class Chess {
                 parsedData=parseInput(input,theBoard);
                 if(parsedData!=null){
                     ArrayList<Location>possibleMoves=theBoard.getValidMoves(theBoard.getPiece(parsedData.getOldLoc()));
-                    ArrayList<Location>allPossibleMoves=theBoard.getAllPossibleBlackMoves();
                     if(possibleMoves!=null){
                         for(Location loc:possibleMoves){
                             if(loc.equals(parsedData.getNewLoc())){
@@ -60,12 +59,17 @@ public class Chess {
                              checkmate=true;
                              canMoveThere=false;
                         }
-                        if(!theBoard.moveDoesntPutInCheck(parsedData)){
+                        else{
+                            System.out.println("you must get out of check!");
+                        }
+                    }
+                    if(!theBoard.moveDoesntPutInCheck(parsedData)){
                             System.out.println("you must get out of check!");
                             theBoard.printOutBoard();
                             continue;
-                        }
-                    }     
+                    }       
+                   // System.out.println(parsedData.getOldLoc());
+                   // System.out.println(parsedData.getNewLoc());
                     if(canMoveThere==true){
                         //check for pawn double move
                         if(theBoard.getPiece(parsedData.getOldLoc())instanceof Pawn){
@@ -103,7 +107,7 @@ public class Chess {
                             }
                         }
                         if(canMoveThere==true){
-                            theBoard.movePiece(parsedData.getOldLoc(), parsedData.getNewLoc());
+                            theBoard.movePiece(parsedData.getOldLoc(),parsedData.getNewLoc());
                         }
                         log.add(parsedData);
                     }
