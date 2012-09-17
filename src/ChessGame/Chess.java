@@ -63,13 +63,14 @@ public class Chess {
                             System.out.println("you must get out of check!");
                         }
                     }
+                    //where the problem is
                     if(!theBoard.moveDoesntPutInCheck(parsedData)){
                             System.out.println("you must get out of check!");
                             theBoard.printOutBoard();
                             continue;
-                    }       
-                   // System.out.println(parsedData.getOldLoc());
-                   // System.out.println(parsedData.getNewLoc());
+                    }   
+                    //System.out.println(theBoard.getPiece(parsedData.getOldLoc())+" old loc");
+                    //System.out.println(theBoard.getPiece(parsedData.getNewLoc())+" old loc");
                     if(canMoveThere==true){
                         //check for pawn double move
                         if(theBoard.getPiece(parsedData.getOldLoc())instanceof Pawn){
@@ -108,8 +109,8 @@ public class Chess {
                         }
                         if(canMoveThere==true){
                             theBoard.movePiece(parsedData.getOldLoc(),parsedData.getNewLoc());
+                            log.add(parsedData);
                         }
-                        log.add(parsedData);
                     }
                     else{
                         System.out.println("illegal move\n\n");
@@ -123,10 +124,49 @@ public class Chess {
             //now checks if any pawns to upgrade:
             theBoard.getPawnUpgrade('W');
             //now begins computer prtion
-           
+            /*
+            Move m=chooseBestMove.getBestMove(theBoard);
+            if(theBoard.getPiece(m.getOldLoc())instanceof Pawn){
+                            Pawn p=(Pawn)(theBoard.getPiece(m.getOldLoc()));
+                            p.setHasMoved(true);
+                            if(Math.abs(m.getOldY()-m.getNewY())==2){
+                                p.setFirstMoveDouble(true);
+                            }
+                            else{
+                                p.setFirstMoveDouble(false);
+                            }
+            }
+                        //check for king
+             if(theBoard.getPiece(m.getOldLoc())instanceof King){
+                     King p=(King)(theBoard.getPiece(m.getOldLoc()));
+                     p.setHasMoved(true);
+              }
+               if(theBoard.getPiece(m.getOldLoc())instanceof King){
+                  if(m.getOldX()-m.getNewX()==-2){
+                     theBoard.movePiece(m.getOldLoc(), m.getNewLoc());
+                     theBoard.movePiece(new Location(m.getOldX()+3,m.getOldY()), new Location(parsedData.getOldX()+1,parsedData.getOldY()));
+                      canMoveThere=false;
+                      }    
+               }
+               //einpawonsusonuttt
+               //do later
+                if(theBoard.getPiece(m.getOldLoc())instanceof Pawn){
+                    if(Math.abs(m.getNewX()-m.getOldX())==1){
+                         if(theBoard.getPiece(m.getOldLoc()).isBlack()){
+                                
+                         }
+                         else{
+                                
+                         }
+                   }
+                }
+                if(canMoveThere==true){
+                            theBoard.movePiece(m.getOldLoc(),m.getNewLoc());
+                            log.add(m);
+                }
+                
+           */
             //out of main loop of execution
-            //this thing is horribally done but done in a rush to work will be refined later
-            
             //now checks if pawns for computer to upgrade
             theBoard.getPawnCompuUpgrade('B');
             //checks if game is over

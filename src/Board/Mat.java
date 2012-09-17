@@ -111,25 +111,8 @@ public class Mat {
         return true;
     }
     public boolean moveDoesntPutInCheck(Move m){
-        //get the piece on the place its moving to if there is one
-        Piece tmp=board[m.getNewX()-1][m.getNewY()-1];
-        //get location of old and save it
-        Location tmpOld=new Location(board[m.getOldX()-1][m.getOldY()-1].getLocation().getX(),board[m.getOldX()-1][m.getOldY()-1].getLocation().getY());
-        //move old piece to new piece
-        board[m.getNewX()-1][m.getNewY()-1]=board[m.getOldX()-1][m.getOldY()-1];
-        //set its location to the new location
-        board[m.getNewX()-1][m.getNewY()-1].setLocation(m.getNewX(), m.getNewY());
-        //set the place it was to null
-        board[m.getOldX()-1][m.getOldY()-1]=null;
-        if(isWhiteKingInCheck()){
-            board[m.getNewX()-1][m.getNewY()-1].setLocation(tmpOld.getX(),tmpOld.getY());
-            board[m.getOldX()-1][m.getOldY()-1]=board[m.getNewX()-1][m.getNewY()-1];
-            board[m.getNewX()-1][m.getNewY()-1]=tmp;
-            return false;
-        }
-        board[m.getNewX()-1][m.getNewY()-1].setLocation(tmpOld.getX(),tmpOld.getY());
-        board[m.getOldX()][m.getOldY()]=board[m.getNewX()][m.getNewY()];
-        board[m.getNewX()][m.getNewY()]=tmp;
+        
+        
         return true;
     }
     /*
